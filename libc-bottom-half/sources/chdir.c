@@ -43,10 +43,10 @@ int chdir(const char *path)
     //
     // If `relative_buf` is equal to "." or `abs` is equal to the empty string,
     // however, we skip that part and the middle slash.
-    size_t len = strlen(abs) + 1;
+    size_t len = strlen(abs) + /* leading "/" */ 1;
     int copy_relative = strcmp(relative_buf, ".") != 0;
     int mid = copy_relative && abs[0] != 0;
-    char *new_cwd = malloc(len + (copy_relative ? strlen(relative_buf) + mid: 0));
+    char *new_cwd = malloc(len + (copy_relative ? strlen(relative_buf) + mid: 0) + /* null */ 1);
     if (new_cwd == NULL) {
         errno = ENOMEM;
         return -1;
