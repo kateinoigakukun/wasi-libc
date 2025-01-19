@@ -129,6 +129,7 @@ CFLAGS ?= --target=$(TARGET_TRIPLE) --sysroot=$(SYSROOT_DIR)
 # Always include the `libc-test` infrastructure headers.
 CFLAGS += -I$(INFRA_HEADERS_DIR)
 ifneq ($(findstring -threads,$(TARGET_TRIPLE)),)
+LDFLAGS += -Wl,--import-memory,--export-memory,--shared-memory,--max-memory=1073741824
 CFLAGS += -pthread
 endif
 
@@ -179,6 +180,7 @@ ifeq ($(TARGET_TRIPLE), wasm32-wasip2)
 ENGINE += --wasm component-model
 OBJPAT := $(OBJDIR)/%.component.wasm
 else
+ENGINE += --wasi threads
 OBJPAT := $(OBJDIR)/%.core.wasm
 endif
 
