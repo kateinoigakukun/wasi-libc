@@ -64,31 +64,31 @@ static size_t dlmalloc_usable_size(void*);
 
 // Export the public names.
 
-void *malloc(size_t size) {
+__attribute__((__weak__)) void *malloc(size_t size) {
     return dlmalloc(size);
 }
 
-void free(void *ptr) {
+__attribute__((__weak__)) void free(void *ptr) {
     dlfree(ptr);
 }
 
-void *calloc(size_t nmemb, size_t size) {
+__attribute__((__weak__)) void *calloc(size_t nmemb, size_t size) {
     return dlcalloc(nmemb, size);
 }
 
-void *realloc(void *ptr, size_t size) {
+__attribute__((__weak__)) void *realloc(void *ptr, size_t size) {
     return dlrealloc(ptr, size);
 }
 
-int posix_memalign(void **memptr, size_t alignment, size_t size) {
+__attribute__((__weak__)) int posix_memalign(void **memptr, size_t alignment, size_t size) {
     return dlposix_memalign(memptr, alignment, size);
 }
 
-void* aligned_alloc(size_t alignment, size_t bytes) {
+__attribute__((__weak__)) void* aligned_alloc(size_t alignment, size_t bytes) {
     return dlmemalign(alignment, bytes);
 }
 
-size_t malloc_usable_size(void *ptr) {
+__attribute__((__weak__)) size_t malloc_usable_size(void *ptr) {
     return dlmalloc_usable_size(ptr);
 }
 
